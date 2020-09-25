@@ -1,0 +1,60 @@
+{
+	"players": 
+	{
+		"playersNumber": 2
+	},
+	"frames": 
+	[
+		{
+			"frameName": "1",
+			"frameShots":
+			[
+				{
+					"shotName": "Shot1",
+					"minShotScore": 0,
+					"maxShotScore": 10,
+					"endFrameScore": 10,
+					"faultScore": 0
+				},
+				{
+					"shotName": "Shot2",
+					"minShotScore": 0,
+					"maxShotScore": 10,
+					"faultScore": 0
+				}
+			],
+			"frameScore": 
+			{
+				"rule": "Shot1 == 10 : SumScoreFrame() + NextScore(2); Shot2 == 10 : SumScoreFrame() + NextScore(1); SumScoreFrame()"
+			} 
+		},
+		{
+			"frameName": "10",
+			"frameShots":
+			[
+				{
+					"shotName": "Shot19",
+					"minShotScore": 0,
+					"maxShotScore": 10,
+					"faultScore": 0
+				},
+				{
+					"shotName": "Shot20",
+					"minShotScore": 0,
+					"maxShotScore": 10,
+					"faultScore": 0
+				},
+				{
+					"shotName": "Shot21",
+					"minShotScore": 0,
+					"maxShotScore": 10,
+					"faultScore": 0
+				}				
+			],
+			"frameScore": 
+			{
+				"rule": "SumScoreFrame()"
+			} 
+		}		
+	]
+}
