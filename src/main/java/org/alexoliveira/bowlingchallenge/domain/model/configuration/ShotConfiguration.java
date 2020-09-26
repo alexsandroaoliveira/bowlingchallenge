@@ -1,4 +1,4 @@
-package org.jobsity.javachallenge.alexsandrooliveira.bowlingchallenge.configuration;
+package org.alexoliveira.bowlingchallenge.domain.model.configuration;
 
 public class ShotConfiguration {
 
