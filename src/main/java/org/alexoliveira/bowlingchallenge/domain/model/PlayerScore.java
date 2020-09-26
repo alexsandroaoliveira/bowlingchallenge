@@ -3,26 +3,16 @@ package org.alexoliveira.bowlingchallenge.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class PlayerScore {
 	
 	private int playerNumber;
 	
-	private String name;
-	
 	private List<String> shots;
 	
-	public Player(int playerNumber)
+	public PlayerScore(int playerNumber)
 	{
 		shots = new ArrayList<String>();
 		this.playerNumber = playerNumber;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public List<String> getShots() {

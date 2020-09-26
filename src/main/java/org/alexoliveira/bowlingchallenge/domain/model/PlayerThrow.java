@@ -1,10 +1,10 @@
 package org.alexoliveira.bowlingchallenge.domain.model;
 
-public class GameThrow {
+public class PlayerThrow {
 
 	private String playerName;
 	
-	private String score;
+	private String pinfalls;
 	
 	public String getPlayerName() {
 		return playerName;
@@ -13,12 +13,12 @@ public class GameThrow {
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
-	
-	public String getScore() {
-		return score;
+
+	public String getPinfalls() {
+		return pinfalls;
 	}
-	
-	public void setScore(String score) {
-		this.score = score;
+
+	public void setPinfalls(String pinfalls) {
+		this.pinfalls = pinfalls;
 	}
 }

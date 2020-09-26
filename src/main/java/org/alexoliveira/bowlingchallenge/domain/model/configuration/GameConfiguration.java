@@ -5,13 +5,12 @@ import java.util.List;
 
 public class GameConfiguration {
 	
-	private PlayerConfiguration players;
+	private int playersNumber;
 	
 	private List<FrameConfiguration> frames;
 	
 	public GameConfiguration() {
-		players = new PlayerConfiguration();
-		players.setPalyersNumber(2);
+		playersNumber = 2;
 		
 		frames = new ArrayList<FrameConfiguration>();
 		
@@ -66,12 +65,12 @@ public class GameConfiguration {
 		frames.add(frame2);
 	}
 	
-	public PlayerConfiguration getPlayers() {
-		return players;
+	public int getPlayersNumber() {
+		return playersNumber;
 	}
 
-	public void setPlayers(PlayerConfiguration players) {
-		this.players = players;
+	public void setPlayersNumber(int playersNumber) {
+		this.playersNumber = playersNumber;
 	}
 
 	public List<FrameConfiguration> getFrames() {

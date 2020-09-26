@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.alexoliveira.bowlingchallenge.domain.model.GameThrow;
+import org.alexoliveira.bowlingchallenge.domain.model.PlayerThrow;
 
 public class GameFileReader {
 
-	public List<GameThrow> readFile(String fileName) throws Exception
+	public List<PlayerThrow> readFile(String fileName) throws Exception
 	{
-		List<GameThrow> result = new ArrayList<GameThrow>();
+		List<PlayerThrow> result = new ArrayList<PlayerThrow>();
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 		    String line;
@@ -27,17 +27,17 @@ public class GameFileReader {
 		return result;
 	}
 
-	private GameThrow readLine(String line, int lineNumber) throws Exception {
+	private PlayerThrow readLine(String line, int lineNumber) throws Exception {
 		String regexPattern = "([\\w\\s]*)\\t([\\dfF]*)";
 		Pattern p = Pattern.compile(regexPattern);
 
 		Matcher m = p.matcher(line);
 
-		GameThrow gt = new GameThrow();
+		PlayerThrow gt = new PlayerThrow();
 		
 		if (m.find()) {
 			gt.setPlayerName(m.group(1));
-			gt.setScore(m.group(2));
+			gt.setPinfalls(m.group(2));
 		}	else {
 			throw new Exception("Invalid line["+lineNumber+"] " + line);
 		}
