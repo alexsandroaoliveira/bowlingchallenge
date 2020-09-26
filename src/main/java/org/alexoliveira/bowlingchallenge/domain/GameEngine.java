@@ -5,7 +5,12 @@ import java.util.Map;
 
 import org.alexoliveira.bowlingchallenge.domain.model.PlayerScore;
 import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard;
+import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard.ScoreboardFrame;
+import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard.ScoreboardPlayer;
+import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard.ScoreboardThrow;
+import org.alexoliveira.bowlingchallenge.domain.model.configuration.FrameConfiguration;
 import org.alexoliveira.bowlingchallenge.domain.model.configuration.GameConfiguration;
+import org.alexoliveira.bowlingchallenge.domain.model.configuration.ShotConfiguration;
 
 public class GameEngine {
 
@@ -30,6 +35,10 @@ public class GameEngine {
 
 	public void computeNewThrow(String playerName, String pinfalls) throws Exception {
 
+		if (frameNumber > configuration.getFrames().size()) {
+			throw new Exception("Game has ended");
+		}
+
 		PlayerScore playerScore;
 
 		if (!playersScores.containsKey(playerName)) {
@@ -43,12 +52,12 @@ public class GameEngine {
 
 		} else {
 			playerScore = playersScores.get(playerName);
-			
+
 		}
 
 		if (playerScore.getPlayerNumber() != playerNumber) {
 			throw new Exception("Wrong Player");
-			
+
 		}
 
 		playerScore.getShots().add(pinfalls);
@@ -104,24 +113,77 @@ public class GameEngine {
 
 			}
 		}
-		
-		//TODO - Remover
-		getScoreboard();
 	}
 
 	public Scoreboard getScoreboard() {
-	    //TODO - Remover
-		for (Map.Entry<String, PlayerScore> entry : playersScores.entrySet()) {
-			StringBuilder sb = new StringBuilder(entry.getKey()+": ");
-			
-			for (String pinfalls: entry.getValue().getShots()) {
-				sb.append(pinfalls+", ");
-			}
-
-			System.out.println(sb);
-	    }
-
 		Scoreboard scoreboard = new Scoreboard();
+
+		for (FrameConfiguration frameConfig: configuration.getFrames()) {
+			scoreboard.getScoreboardFrameList().add(frameConfig.getFrameName());
+		}
+		
+		for (Map.Entry<String, PlayerScore> entry : playersScores.entrySet()) {
+			ScoreboardPlayer sbp = scoreboard.new ScoreboardPlayer();
+			scoreboard.getScoreboardPlayerList().add(sbp);
+			sbp.setName(entry.getKey());
+
+			PlayerScore ps = entry.getValue();
+			int boardFrameNum = 1;
+			int boardThrowNum = 1;
+			int i = 0;
+
+			FrameConfiguration frameConfig = configuration.getFrames().get(boardFrameNum-1);
+			ShotConfiguration shotConfig = frameConfig.getFrameShots().get(boardThrowNum-1);
+
+			ScoreboardFrame sbf = scoreboard.new ScoreboardFrame();
+			sbp.getScoreboardFrameList().add(sbf);
+			float frameScore = 0; 
+
+			while (boardFrameNum <= configuration.getFrames().size()) {
+				
+				if (boardThrowNum <= frameConfig.getFrameShots().size()) {
+					shotConfig = frameConfig.getFrameShots().get(boardThrowNum-1);
+					
+					ScoreboardThrow sbt = scoreboard.new ScoreboardThrow();
+					sbt.setPinFalls(ps.getShots().get(i));
+					sbf.getScoreboardThrowList().add(sbt);
+					
+				}  
+				
+				if (i < ps.getShots().size()) {
+				
+					if (ps.getShots().get(i).toUpperCase().equals("F")) {
+						frameScore += shotConfig.getFaultScore();
+					} else if (ps.getShots().get(i).toUpperCase().equals("B")) {
+						frameScore += 0;
+					} else {
+						frameScore += Float.parseFloat(ps.getShots().get(i));
+					}
+				}
+				
+				boardThrowNum++;
+				
+				if (boardThrowNum > frameConfig.getFrameShots().size()) {
+
+					sbf.setScore(frameScore);
+					
+					boardFrameNum++;
+					boardThrowNum = 1;
+
+					if (boardFrameNum > configuration.getFrames().size()) {
+						break;
+					}
+
+					frameConfig = configuration.getFrames().get(boardFrameNum-1);
+
+					sbf = scoreboard.new ScoreboardFrame();
+					sbp.getScoreboardFrameList().add(sbf);					
+				}
+
+				i++;
+			}
+	
+		}
 
 		return scoreboard;
 	}
