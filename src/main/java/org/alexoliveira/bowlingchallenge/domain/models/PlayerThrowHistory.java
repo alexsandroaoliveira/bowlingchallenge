@@ -7,20 +7,15 @@ public class PlayerThrowHistory {
 	
 	private int playerNumber;
 	
-	private List<String> shots;
+	private List<ThrowScore> shotList;
+	
+	private List<PlayerFrame> frameList;
 	
 	public PlayerThrowHistory(int playerNumber)
 	{
-		shots = new ArrayList<String>();
+		shotList = new ArrayList<ThrowScore>();
+		frameList= new ArrayList<PlayerFrame>();
 		this.playerNumber = playerNumber;
-	}
-
-	public List<String> getShots() {
-		return shots;
-	}
-
-	public void setShots(List<String> shots) {
-		this.shots = shots;
 	}
 
 	public int getPlayerNumber() {
@@ -30,5 +25,22 @@ public class PlayerThrowHistory {
 	public void setPlayerNumber(int playerNumber) {
 		this.playerNumber = playerNumber;
 	}
+
+	public List<ThrowScore> getShotList() {
+		return shotList;
+	}
+
+	public void setShotList(List<ThrowScore> shotList) {
+		this.shotList = shotList;
+	}
+
+	public List<PlayerFrame> getFrameList() {
+		return frameList;
+	}
+
+	public void setFrameList(List<PlayerFrame> frameList) {
+		this.frameList = frameList;
+	}
+
 	
 }

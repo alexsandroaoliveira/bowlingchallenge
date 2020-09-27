@@ -62,7 +62,7 @@ public class Scoreboard {
 	
 		private List<ScoreboardThrow> scoreboardThrowList;
 		
-		private float score;
+		private int score;
 		
 		public ScoreboardFrame() {
 			scoreboardThrowList = new ArrayList<ScoreboardThrow>();
@@ -76,11 +76,11 @@ public class Scoreboard {
 			this.scoreboardThrowList = scoreboardThrowList;
 		}
 		
-		public float getScore() {
+		public int getScore() {
 			return score;
 		}
 		
-		public void setScore(float score) {
+		public void setScore(int score) {
 			this.score = score;
 		}
 	}

@@ -2,54 +2,33 @@ package org.alexoliveira.bowlingchallenge.domain.models.configuration;
 
 public class ThrowConfiguration {
 
-	private String shotName;
+	private int faultScore;
+	
+	private int pinClearBonus;
+	
+	private boolean endFrameOnPinClear;
 
-	private float minSchotScore;
-
-	private float maxShotScore;
-
-	private float EndFrameScore;
-
-	private float faultScore;
-
-	public String getShotName() {
-		return shotName;
-	}
-	
-	public void setShotName(String shotName) {
-		this.shotName = shotName;
-	}
-	
-	public float getMinSchotScore() {
-		return minSchotScore;
-	}
-	
-	public void setMinSchotScore(float minSchotScore) {
-		this.minSchotScore = minSchotScore;
-	}
-	
-	public float getMaxShotScore() {
-		return maxShotScore;
-	}
-	
-	public void setMaxShotScore(float maxShotScore) {
-		this.maxShotScore = maxShotScore;
-	}
-	
-	public float getEndFrameScore() {
-		return EndFrameScore;
-	}
-	
-	public void setEndFrameScore(float endFrameScore) {
-		EndFrameScore = endFrameScore;
-	}
-	
-	public float getFaultScore() {
+	public int getFaultScore() {
 		return faultScore;
 	}
-	
-	public void setFaultScore(float faultScore) {
+
+	public void setFaultScore(int faultScore) {
 		this.faultScore = faultScore;
 	}
 
+	public int getPinClearBonus() {
+		return pinClearBonus;
+	}
+
+	public void setPinClearBonus(int pinClearBonus) {
+		this.pinClearBonus = pinClearBonus;
+	}
+
+	public boolean isEndFrameOnPinClear() {
+		return endFrameOnPinClear;
+	}
+
+	public void setEndFrameOnPinClear(boolean endFrameOnPinClear) {
+		this.endFrameOnPinClear = endFrameOnPinClear;
+	}
 }

@@ -14,55 +14,47 @@ public class GameConfiguration {
 		
 		frames = new ArrayList<FrameConfiguration>();
 		
-		FrameConfiguration frame1 = new FrameConfiguration();
-		frame1.setFrameName("1");
+		FrameConfiguration frame = new FrameConfiguration();
+		frame.setFrameName("1");
+		frame.setPinNumber(10);
 		
-		ThrowConfiguration shot1 = new ThrowConfiguration();
-		shot1.setShotName("Shot1");
-		shot1.setMinSchotScore(0);
-		shot1.setMaxShotScore(10);
-		shot1.setEndFrameScore(10);
-		shot1.setFaultScore(0);
-		frame1.getFrameShots().add(shot1);
+		ThrowConfiguration shot = new ThrowConfiguration();
+		shot.setFaultScore(0);
+		shot.setPinClearBonus(2);
+		shot.setEndFrameOnPinClear(true);
+		frame.getFrameShots().add(shot);
 
-		ThrowConfiguration shot2 = new ThrowConfiguration();
-		shot2.setShotName("Shot2");
-		shot2.setMinSchotScore(0);
-		shot2.setMaxShotScore(10);
-		shot2.setFaultScore(0);
-		frame1.getFrameShots().add(shot2);
+		shot = new ThrowConfiguration();
+		shot.setFaultScore(0);
+		shot.setPinClearBonus(1);
+		shot.setEndFrameOnPinClear(true);
+		frame.getFrameShots().add(shot);
+	
+		frames.add(frame);
 		
-		frame1.setScoreRule("Shot1 == 10 : SumScoreFrame() + NextScore(2); Shot2 == 10 : SumScoreFrame() + NextScore(1); SumScoreFrame()");
+		frame = new FrameConfiguration();
+		frame.setFrameName("2");
+		frame.setPinNumber(10);
 		
-		frames.add(frame1);
-		
-		FrameConfiguration frame2 = new FrameConfiguration();
-		frame2.setFrameName("10");
-		
-		ThrowConfiguration shot19 = new ThrowConfiguration();
-		shot19.setShotName("Shot19");
-		shot19.setMinSchotScore(0);
-		shot19.setMaxShotScore(10);
-		shot19.setFaultScore(0);
-		frame2.getFrameShots().add(shot19);
+		shot = new ThrowConfiguration();
+		shot.setFaultScore(0);
+		shot.setPinClearBonus(0);
+		shot.setEndFrameOnPinClear(false);
+		frame.getFrameShots().add(shot);
 
-		ThrowConfiguration shot20 = new ThrowConfiguration();
-		shot20.setShotName("Shot20");
-		shot20.setMinSchotScore(0);
-		shot20.setMaxShotScore(10);
-		shot20.setFaultScore(0);
-		frame2.getFrameShots().add(shot20);
+		shot = new ThrowConfiguration();
+		shot.setFaultScore(0);
+		shot.setPinClearBonus(0);
+		shot.setEndFrameOnPinClear(false);
+		frame.getFrameShots().add(shot);
 		
-		ThrowConfiguration shot21 = new ThrowConfiguration();
-		shot21.setShotName("Shot21");
-		shot21.setMinSchotScore(0);
-		shot21.setMaxShotScore(10);
-		shot21.setFaultScore(0);
-		frame2.getFrameShots().add(shot21);
+		shot = new ThrowConfiguration();
+		shot.setFaultScore(0);
+		shot.setPinClearBonus(0);
+		shot.setEndFrameOnPinClear(false);
+		frame.getFrameShots().add(shot);
 		
-		frame2.setScoreRule("SumScoreFrame()");
-		
-		frames.add(frame2);
+		frames.add(frame);
 	}
 	
 	public int getPlayersNumber() {

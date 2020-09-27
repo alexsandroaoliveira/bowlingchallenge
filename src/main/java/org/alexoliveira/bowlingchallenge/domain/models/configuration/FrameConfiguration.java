@@ -4,41 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FrameConfiguration {
-	
+
 	private String frameName;
+	
+	private int pinNumber;
 	
 	private List<ThrowConfiguration> frameShots;
 	
-	private String scoreRule;
-	
 	public FrameConfiguration() {
-		frameShots = new ArrayList<ThrowConfiguration>();
+		frameShots= new ArrayList<ThrowConfiguration>();	
 	}
-	
-	public List<ThrowConfiguration> getFrameShots() {
-		return frameShots;
-	}
-	
-	public void setFrameShots(List<ThrowConfiguration> frameShots) {
-		this.frameShots = frameShots;
-	}
-	
+
 	public String getFrameName() {
 		return frameName;
 	}
-	
+
 	public void setFrameName(String frameName) {
 		this.frameName = frameName;
 	}
 
-	public String getScoreRule() {
-		return scoreRule;
+	public int getPinNumber() {
+		return pinNumber;
 	}
 
-	public void setScoreRule(String scoreRule) {
-		this.scoreRule = scoreRule;
+	public void setPinNumber(int pinNumber) {
+		this.pinNumber = pinNumber;
 	}
-	
-	
+
+	public List<ThrowConfiguration> getFrameShots() {
+		return frameShots;
+	}
+
+	public void setFrameShots(List<ThrowConfiguration> frameShots) {
+		this.frameShots = frameShots;
+	}
 
 }
