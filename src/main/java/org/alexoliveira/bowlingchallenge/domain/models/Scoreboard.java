@@ -64,8 +64,13 @@ public class Scoreboard {
 		
 		private int score;
 		
+		private int totalScore;
+
+		
 		public ScoreboardFrame() {
 			scoreboardThrowList = new ArrayList<ScoreboardThrow>();
+			totalScore = 0;
+			score = 0;
 		}
 		
 		public List<ScoreboardThrow> getScoreboardThrowList() {
@@ -83,6 +88,15 @@ public class Scoreboard {
 		public void setScore(int score) {
 			this.score = score;
 		}
+
+		public int getTotalScore() {
+			return totalScore;
+		}
+
+		public void setTotalScore(int totalScore) {
+			this.totalScore = totalScore;
+		}
+		
 	}
 
 	public class ScoreboardThrow {

@@ -32,7 +32,7 @@ public class BowlingScoreRender implements ScoreRender {
 					pitfallsStr += sbt.getPinFalls() + "\t";
 				}
 				
-				scoreStr += "\t\t"+sbf.getScore();
+				scoreStr += "\t\t"+sbf.getTotalScore();
 			}
 			System.out.println(pitfallsStr);
 			
