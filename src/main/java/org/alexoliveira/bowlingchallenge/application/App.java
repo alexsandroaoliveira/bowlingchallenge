@@ -1,21 +1,20 @@
 package org.alexoliveira.bowlingchallenge.application;
 
+import org.alexoliveira.bowlingchallenge.application.interfaces.GameApp;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+
 public class App 
 {
     public static void main( String[] args )
     {
-		try {
-			if (args.length == 0) {
-				throw new Exception("Invalid game file");
-			}
-		
-			GameApp gameApp = new GameApp();
+		if (args.length == 0) {
+			System.out.println("Invalid game file");;
+		}
+
+    	try (AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class)){
+	    	GameApp gameApp = context.getBean(GameApp.class);
 			gameApp.Run(args[0]);
-	        
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		} 
-     
+    	}
     }
 }

@@ -1,6 +1,6 @@
-package org.alexoliveira.bowlingchallenge.domain.model.configuration;
+package org.alexoliveira.bowlingchallenge.domain.models.configuration;
 
-public class ShotConfiguration {
+public class ThrowConfiguration {
 
 	private String shotName;
 

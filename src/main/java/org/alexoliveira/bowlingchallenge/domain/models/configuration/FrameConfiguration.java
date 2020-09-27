@@ -1,4 +1,4 @@
-package org.alexoliveira.bowlingchallenge.domain.model.configuration;
+package org.alexoliveira.bowlingchallenge.domain.models.configuration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,19 +7,19 @@ public class FrameConfiguration {
 	
 	private String frameName;
 	
-	private List<ShotConfiguration> frameShots;
+	private List<ThrowConfiguration> frameShots;
 	
 	private String scoreRule;
 	
 	public FrameConfiguration() {
-		frameShots = new ArrayList<ShotConfiguration>();
+		frameShots = new ArrayList<ThrowConfiguration>();
 	}
 	
-	public List<ShotConfiguration> getFrameShots() {
+	public List<ThrowConfiguration> getFrameShots() {
 		return frameShots;
 	}
 	
-	public void setFrameShots(List<ShotConfiguration> frameShots) {
+	public void setFrameShots(List<ThrowConfiguration> frameShots) {
 		this.frameShots = frameShots;
 	}
 	

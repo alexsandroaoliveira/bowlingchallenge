@@ -1,11 +1,12 @@
 package org.alexoliveira.bowlingchallenge.infra;
 
-import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard;
-import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard.ScoreboardFrame;
-import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard.ScoreboardPlayer;
-import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard.ScoreboardThrow;
+import org.alexoliveira.bowlingchallenge.domain.interfaces.infra.ScoreRender;
+import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard;
+import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard.ScoreboardFrame;
+import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard.ScoreboardPlayer;
+import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard.ScoreboardThrow;
 
-public class ScoreRender {
+public class BowlingScoreRender implements ScoreRender {
 
 	public void render(Scoreboard scoreboard) {
 		//header

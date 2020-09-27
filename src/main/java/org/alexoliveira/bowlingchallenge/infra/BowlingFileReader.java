@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.alexoliveira.bowlingchallenge.domain.model.PlayerThrow;
+import org.alexoliveira.bowlingchallenge.domain.interfaces.infra.GameFileReader;
+import org.alexoliveira.bowlingchallenge.domain.models.PlayerThrow;
 
-public class GameFileReader {
+public class BowlingFileReader implements GameFileReader {
 
 	public List<PlayerThrow> readFile(String fileName) throws Exception
 	{
@@ -39,9 +40,8 @@ public class GameFileReader {
 			gt.setPlayerName(m.group(1));
 			gt.setPinfalls(m.group(2));
 		}	else {
-			throw new Exception("Invalid line["+lineNumber+"] " + line);
-		}
-		
+			throw new Exception("Invalid line ["+lineNumber+"] " + line);
+		}		
 		
 		return gt;
 	}

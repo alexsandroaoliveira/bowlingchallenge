@@ -3,30 +3,31 @@ package org.alexoliveira.bowlingchallenge.domain;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.alexoliveira.bowlingchallenge.domain.model.PlayerScore;
-import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard;
-import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard.ScoreboardFrame;
-import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard.ScoreboardPlayer;
-import org.alexoliveira.bowlingchallenge.domain.model.Scoreboard.ScoreboardThrow;
-import org.alexoliveira.bowlingchallenge.domain.model.configuration.FrameConfiguration;
-import org.alexoliveira.bowlingchallenge.domain.model.configuration.GameConfiguration;
-import org.alexoliveira.bowlingchallenge.domain.model.configuration.ShotConfiguration;
+import org.alexoliveira.bowlingchallenge.domain.interfaces.GameEngine;
+import org.alexoliveira.bowlingchallenge.domain.models.PlayerThrowHistory;
+import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard;
+import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard.ScoreboardFrame;
+import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard.ScoreboardPlayer;
+import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard.ScoreboardThrow;
+import org.alexoliveira.bowlingchallenge.domain.models.configuration.FrameConfiguration;
+import org.alexoliveira.bowlingchallenge.domain.models.configuration.GameConfiguration;
+import org.alexoliveira.bowlingchallenge.domain.models.configuration.ThrowConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class GameEngine {
+public class BowlingGameEngine implements GameEngine {
 
+	@Autowired
 	private GameConfiguration configuration;
 
-	private Map<String, PlayerScore> playersScores;
+	private Map<String, PlayerThrowHistory> playersScores;
 
 	private int	frameNumber;
 	private int shotNumber;
 	private int playerNumber;
 
-	public GameEngine(GameConfiguration configuration) {
+	public BowlingGameEngine() {
 
-		this.configuration = configuration;
-
-		playersScores = new HashMap<String, PlayerScore>();
+		playersScores = new HashMap<String, PlayerThrowHistory>();
 
 		frameNumber = 1;
 		shotNumber = 1;
@@ -39,7 +40,7 @@ public class GameEngine {
 			throw new Exception("Game has ended");
 		}
 
-		PlayerScore playerScore;
+		PlayerThrowHistory playerScore;
 
 		if (!playersScores.containsKey(playerName)) {
 
@@ -47,7 +48,7 @@ public class GameEngine {
 				throw new Exception("Maximum players number reached"+configuration.getPlayersNumber());
 			}
 
-			playerScore = new PlayerScore(playerNumber);
+			playerScore = new PlayerThrowHistory(playerNumber);
 			playersScores.put(playerName, playerScore);
 
 		} else {
@@ -122,18 +123,18 @@ public class GameEngine {
 			scoreboard.getScoreboardFrameList().add(frameConfig.getFrameName());
 		}
 		
-		for (Map.Entry<String, PlayerScore> entry : playersScores.entrySet()) {
+		for (Map.Entry<String, PlayerThrowHistory> entry : playersScores.entrySet()) {
 			ScoreboardPlayer sbp = scoreboard.new ScoreboardPlayer();
 			scoreboard.getScoreboardPlayerList().add(sbp);
 			sbp.setName(entry.getKey());
 
-			PlayerScore ps = entry.getValue();
+			PlayerThrowHistory ps = entry.getValue();
 			int boardFrameNum = 1;
 			int boardThrowNum = 1;
 			int i = 0;
 
 			FrameConfiguration frameConfig = configuration.getFrames().get(boardFrameNum-1);
-			ShotConfiguration shotConfig = frameConfig.getFrameShots().get(boardThrowNum-1);
+			ThrowConfiguration shotConfig = frameConfig.getFrameShots().get(boardThrowNum-1);
 
 			ScoreboardFrame sbf = scoreboard.new ScoreboardFrame();
 			sbp.getScoreboardFrameList().add(sbf);
@@ -154,10 +155,13 @@ public class GameEngine {
 				
 					if (ps.getShots().get(i).toUpperCase().equals("F")) {
 						frameScore += shotConfig.getFaultScore();
+						
 					} else if (ps.getShots().get(i).toUpperCase().equals("B")) {
 						frameScore += 0;
+						
 					} else {
 						frameScore += Float.parseFloat(ps.getShots().get(i));
+						
 					}
 				}
 				

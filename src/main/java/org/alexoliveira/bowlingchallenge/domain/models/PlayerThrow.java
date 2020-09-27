@@ -1,4 +1,4 @@
-package org.alexoliveira.bowlingchallenge.domain.model;
+package org.alexoliveira.bowlingchallenge.domain.models;
 
 public class PlayerThrow {
 

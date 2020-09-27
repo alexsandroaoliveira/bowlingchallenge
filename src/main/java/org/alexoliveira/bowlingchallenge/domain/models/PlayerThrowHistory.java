@@ -1,15 +1,15 @@
-package org.alexoliveira.bowlingchallenge.domain.model;
+package org.alexoliveira.bowlingchallenge.domain.models;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerScore {
+public class PlayerThrowHistory {
 	
 	private int playerNumber;
 	
 	private List<String> shots;
 	
-	public PlayerScore(int playerNumber)
+	public PlayerThrowHistory(int playerNumber)
 	{
 		shots = new ArrayList<String>();
 		this.playerNumber = playerNumber;
