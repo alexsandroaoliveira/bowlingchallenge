@@ -3,7 +3,7 @@ package org.alexoliveira.bowlingchallenge.domain.models.configuration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameConfiguration implements newThrow {
+public class GameConfiguration {
 	
 	private int playersNumber;
 	

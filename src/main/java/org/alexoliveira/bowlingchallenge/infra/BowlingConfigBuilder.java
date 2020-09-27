@@ -1,6 +1,5 @@
-package org.alexoliveira.bowlingchallenge.domain;
+package org.alexoliveira.bowlingchallenge.infra;
 
-import org.alexoliveira.bowlingchallenge.domain.interfaces.GameConfigBuilder;
 import org.alexoliveira.bowlingchallenge.domain.models.configuration.FrameConfiguration;
 import org.alexoliveira.bowlingchallenge.domain.models.configuration.GameConfiguration;
 import org.alexoliveira.bowlingchallenge.domain.models.configuration.ThrowConfiguration;

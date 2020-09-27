@@ -3,93 +3,82 @@ package org.alexoliveira.bowlingchallenge.domain;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.alexoliveira.bowlingchallenge.domain.interfaces.GameConfigBuilder;
 import org.alexoliveira.bowlingchallenge.domain.interfaces.GameEngine;
+import org.alexoliveira.bowlingchallenge.domain.interfaces.infra.GameConfigReader;
 import org.alexoliveira.bowlingchallenge.domain.models.PlayerFrame;
 import org.alexoliveira.bowlingchallenge.domain.models.PlayerThrowHistory;
-import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard;
-import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard.ScoreboardFrame;
-import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard.ScoreboardPlayer;
-import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard.ScoreboardThrow;
 import org.alexoliveira.bowlingchallenge.domain.models.ThrowScore;
-import org.alexoliveira.bowlingchallenge.domain.models.configuration.FrameConfiguration;
-import org.alexoliveira.bowlingchallenge.domain.models.configuration.GameConfiguration;
-import org.alexoliveira.bowlingchallenge.domain.models.configuration.ThrowConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BowlingGameEngine implements GameEngine {
 
 	@Autowired
-	private GameConfigBuilder gameConfigBuilder;
+	private GameConfigReader configReader;
 
-	private Map<String, PlayerThrowHistory> playersScores;
+	private Map<String, PlayerThrowHistory> gameThrowHistory;
 
-	private int	frameNumber;
-	private int shotNumber;
-	private int playerNumber;
+	private int	currentFrameNumber;
+	private int currentShotNumber;
+	private int currentPlayerNumber;
 	private int currentScore;
 
-	private PlayerFrame playerFrame;
+	private PlayerFrame currentFrame;
 
 	public BowlingGameEngine() {
-
-		playersScores = new HashMap<String, PlayerThrowHistory>();
+		gameThrowHistory = new HashMap<String, PlayerThrowHistory>();
 	
-		frameNumber = 1;
-		shotNumber = 1;
-		playerNumber = 1;
+		currentFrameNumber = 1;
+		currentShotNumber = 1;
+		currentPlayerNumber = 1;
 		currentScore = 0;
-		playerFrame = new PlayerFrame();
+		currentFrame = new PlayerFrame();
 	}
-
+	
+	@Override
 	public void computeNewThrow(String playerName, String pinfalls) throws Exception {
-
-		GameConfiguration configuration = gameConfigBuilder.build();
 		
-		if (frameNumber > configuration.getFrames().size()) {
-			throw new Exception("Game has ended");
+		if (currentFrameNumber > configReader.getFrameNumber()) {
+			throw new Exception("The game is over");
 		}
 
-		PlayerThrowHistory playerScore;
+		PlayerThrowHistory playerThrowHistory;
 
-		if (!playersScores.containsKey(playerName)) {
+		if (!gameThrowHistory.containsKey(playerName)) {
 
-			if (playersScores.size() >= configuration.getPlayersNumber()) {
-				throw new Exception("Maximum players number reached"+configuration.getPlayersNumber());
+			if (gameThrowHistory.size() >= configReader.getPlayersNumber()) {
+				throw new Exception("Maximum players number reached" + configReader.getPlayersNumber());
 			}
 
-			playerScore = new PlayerThrowHistory(playerNumber);
-			playersScores.put(playerName, playerScore);
+			playerThrowHistory = new PlayerThrowHistory(currentPlayerNumber);
+			gameThrowHistory.put(playerName, playerThrowHistory);
 
 		} else {
-			playerScore = playersScores.get(playerName);
+			playerThrowHistory = gameThrowHistory.get(playerName);
 
 		}
 
-		if (playerScore.getPlayerNumber() != playerNumber) {
+		if (playerThrowHistory.getPlayerNumber() != currentPlayerNumber) {
 			throw new Exception("Wrong Player");
 
 		}
 
-		FrameConfiguration frameConfig = configuration.getFrames().get(frameNumber-1);
-		ThrowConfiguration shotConfig = frameConfig.getFrameShots().get(shotNumber-1);
-
-		if (!playerScore.getFrameList().contains(playerFrame)) {
-			playerScore.getFrameList().add(playerFrame);
+		if (!playerThrowHistory.getFrameList().contains(currentFrame)) {
+			playerThrowHistory.getFrameList().add(currentFrame);
 		}
 
 		ThrowScore ts = new ThrowScore();
 		ts.setPinfalls(pinfalls);
 
-		playerFrame.getThrowScoreList().add(ts);
-		playerScore.getShotList().add(ts);
+		currentFrame.getThrowScoreList().add(ts);
+		playerThrowHistory.getShotList().add(ts);
 
 		if (pinfalls.toUpperCase().equals("F")) {
-			currentScore += shotConfig.getFaultScore();
-			ts.setScore(shotConfig.getFaultScore());
+			int faultScore = configReader.getFaultScore(currentFrameNumber, currentShotNumber);
+			currentScore += faultScore;
+			ts.setScore(faultScore);
 
 		} else {
-			if (Integer.parseInt(pinfalls) > frameConfig.getPinNumber() || Integer.parseInt(pinfalls) < 0) {
+			if (Integer.parseInt(pinfalls) > configReader.getNumberOfPins(currentFrameNumber) || Integer.parseInt(pinfalls) < 0) {
 				throw new Exception("Invalid pinfall input: " + pinfalls);
 			}
 
@@ -98,14 +87,14 @@ public class BowlingGameEngine implements GameEngine {
 
 		}
 
-		if (currentScore >= frameConfig.getPinNumber()) {
+		if (currentScore >= configReader.getNumberOfPins(currentFrameNumber)) {
 
-			playerFrame.setScore(playerFrame.getScore() + currentScore);
+			currentFrame.setScore(currentFrame.getScore() + currentScore);
 			currentScore=0;
 
-			if (shotNumber == 1) {
+			if (currentShotNumber == 1) {
 				ts.setPinfalls("X");
-			} else if (!shotConfig.isEndFrameOnPinClear())
+			} else if (!configReader.isEndFrameOnPinClear(currentFrameNumber, currentShotNumber))
 			{
 				ts.setPinfalls("X");
 			} else {
@@ -113,125 +102,69 @@ public class BowlingGameEngine implements GameEngine {
 			}
 
 
-			playerFrame.setBonus(shotConfig.getPinClearBonus());
+			currentFrame.setBonus(configReader.getPinClearBonus(currentFrameNumber, currentShotNumber));
 
-			if (shotConfig.isEndFrameOnPinClear()) {
+			if (configReader.isEndFrameOnPinClear(currentFrameNumber, currentShotNumber)) {
 
-				if (configuration.getPlayersNumber() == playerNumber) {
-					frameNumber++;
-					playerNumber = 1;
+				if (configReader.getPlayersNumber() == currentPlayerNumber) {
+					currentFrameNumber++;
+					currentPlayerNumber = 1;
 
 				} else {
-					playerNumber++;
+					currentPlayerNumber++;
 
 				}
 
-				shotNumber = 1;
-				playerFrame = new PlayerFrame();
+				currentShotNumber = 1;
+				currentFrame = new PlayerFrame();
 			} else {
-				if (shotNumber == frameConfig.getFrameShots().size()) {
+				if (currentShotNumber == configReader.getTrowsNumber(currentFrameNumber)) {
 
-					if (playerNumber == configuration.getPlayersNumber()) {
-						frameNumber++;
-						playerNumber=1;
+					if (currentPlayerNumber == configReader.getPlayersNumber()) {
+						currentFrameNumber++;
+						currentPlayerNumber=1;
 
 					}else {
-						playerNumber++;
+						currentPlayerNumber++;
 
 					}
 
-					shotNumber = 1;
-					playerFrame = new PlayerFrame();
+					currentShotNumber = 1;
+					currentFrame = new PlayerFrame();
 
 				} else {
-					shotNumber++;
+					currentShotNumber++;
 
 				}
 			}
 
 		} else {
 
-			if (shotNumber == frameConfig.getFrameShots().size()) {
-				playerFrame.setScore(playerFrame.getScore() + currentScore);
+			if (currentShotNumber == configReader.getTrowsNumber(currentFrameNumber)) {
+				currentFrame.setScore(currentFrame.getScore() + currentScore);
 				currentScore = 0;
 
-				if (playerNumber == configuration.getPlayersNumber()) {
-					frameNumber++;
-					playerNumber=1;
+				if (currentPlayerNumber == configReader.getPlayersNumber()) {
+					currentFrameNumber++;
+					currentPlayerNumber=1;
 
 				}else {
-					playerNumber++;
+					currentPlayerNumber++;
 
 				}
 
-				shotNumber = 1;
-				playerFrame = new PlayerFrame();
+				currentShotNumber = 1;
+				currentFrame = new PlayerFrame();
 
 			} else {
-				shotNumber++;
+				currentShotNumber++;
 
 			}
 		}
 	}
-
-	public Scoreboard getScoreboard() {
-		GameConfiguration configuration = gameConfigBuilder.build();
-
-		Scoreboard scoreboard = new Scoreboard();
-
-		for (FrameConfiguration frameConfig: configuration.getFrames()) {
-			scoreboard.getScoreboardFrameList().add(frameConfig.getFrameName());
-		}
-
-		for (Map.Entry<String, PlayerThrowHistory> entry : playersScores.entrySet()) {
-			ScoreboardPlayer sbp = scoreboard.new ScoreboardPlayer();
-			scoreboard.getScoreboardPlayerList().add(sbp);
-			sbp.setName(entry.getKey());
-
-			System.out.println(entry.getKey());
-
-			PlayerThrowHistory ps = entry.getValue();
-			
-			int totalScore = 0;
-			for (FrameConfiguration frameConfig: configuration.getFrames()) {
-
-				PlayerFrame pf = ps.getFrameList().get(configuration.getFrames().indexOf(frameConfig));
-
-				ScoreboardFrame sbf = scoreboard.new ScoreboardFrame();
-				sbp.getScoreboardFrameList().add(sbf);
-
-
-				for (int i = pf.getThrowScoreList().size(); i < frameConfig.getFrameShots().size(); i++) {
-					ScoreboardThrow sbt = scoreboard.new ScoreboardThrow();
-					sbf.getScoreboardThrowList().add(sbt);	
-					sbt.setPinFalls("");
-				}
-				
-				for (ThrowScore ts: pf.getThrowScoreList()) {
-					ScoreboardThrow sbt = scoreboard.new ScoreboardThrow();
-					sbf.getScoreboardThrowList().add(sbt);	
-					sbt.setPinFalls(ts.getPinfalls());
-
-					System.out.println(ts.getPinfalls()+"-"+ts.getScore());
-				}
-
-				int score = pf.getScore();
-
-				for (int i = 1; i <= pf.getBonus(); i++) {
-					ThrowScore lastThrowOfFrame = pf.getThrowScoreList().get(pf.getThrowScoreList().size()-1);
-					score += ps.getShotList().get(ps.getShotList().indexOf(lastThrowOfFrame) + i).getScore();
-				}
-
-				sbf.setScore(score);
-				totalScore += score;
-				sbf.setTotalScore(totalScore);
-
-				System.out.println(pf.getScore()+"-"+score);
-
-			}
-		}
-
-		return scoreboard;
+	
+	@Override
+	public Map<String, PlayerThrowHistory> getPlayersScores() {
+		return gameThrowHistory;
 	}
-
 }

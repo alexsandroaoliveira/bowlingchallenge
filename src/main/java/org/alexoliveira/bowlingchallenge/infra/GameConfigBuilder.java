@@ -1,4 +1,4 @@
-package org.alexoliveira.bowlingchallenge.domain.interfaces;
+package org.alexoliveira.bowlingchallenge.infra;
 
 import org.alexoliveira.bowlingchallenge.domain.models.configuration.GameConfiguration;
 

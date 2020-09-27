@@ -8,13 +8,10 @@ public class App
 {
     public static void main( String[] args )
     {
-		if (args.length == 0) {
-			System.out.println("Invalid game file");;
-		}
-
-    	try (AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class)){
+    	try (AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class)) {
+    		
 	    	GameApp gameApp = context.getBean(GameApp.class);
-			gameApp.Run(args[0]);
+			gameApp.Run(args);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

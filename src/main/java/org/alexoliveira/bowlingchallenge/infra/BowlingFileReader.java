@@ -17,10 +17,14 @@ public class BowlingFileReader implements GameFileReader {
 		List<PlayerThrow> result = new ArrayList<PlayerThrow>();
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-		    String line;
-		    int lineNumber = 1;
-		    while ((line = br.readLine()) != null) {
+		    
+			String line;
+			int lineNumber = 1;
+		    
+			while ((line = br.readLine()) != null) {
+		    	
 		    	result.add(readLine(line, lineNumber));
+
 		    	lineNumber++;
 		    }
 		}
@@ -29,20 +33,25 @@ public class BowlingFileReader implements GameFileReader {
 	}
 
 	private PlayerThrow readLine(String line, int lineNumber) throws Exception {
-		String regexPattern = "([\\w\\s]*)\\t([\\dfF]*)";
+		String regexPattern = "^(\\w*)\\t([\\dFf]*)$";
 		Pattern p = Pattern.compile(regexPattern);
 
 		Matcher m = p.matcher(line);
 
-		PlayerThrow gt = new PlayerThrow();
-		
+		//Validate the input line
 		if (m.find()) {
+			
+			PlayerThrow gt = new PlayerThrow();
+			
 			gt.setPlayerName(m.group(1));
 			gt.setPinfalls(m.group(2));
+			
+			return gt;
+
 		}	else {
-			throw new Exception("Invalid line ["+lineNumber+"] " + line);
-		}		
+			
+			throw new Exception("Invalid input line ["+lineNumber+"]: " + line);
 		
-		return gt;
+		}
 	}
 }

@@ -1,8 +1,10 @@
 package org.alexoliveira.bowlingchallenge.domain.interfaces;
 
-import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard;
+import java.util.Map;
+
+import org.alexoliveira.bowlingchallenge.domain.models.PlayerThrowHistory;
 
 public interface GameEngine {
 	void computeNewThrow(String playerName, String pinfalls) throws Exception;
-	Scoreboard getScoreboard();
+	Map<String, PlayerThrowHistory> getPlayersScores();
 }
