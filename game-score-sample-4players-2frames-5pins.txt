@@ -1,0 +1,15 @@
+Player1	5
+Player2	1
+Player2	3
+Player3	F
+Player3	2
+Player4	3
+Player4	2
+Player1	5
+Player1	5
+Player2	2
+Player2	1
+Player3	2
+Player3	0
+Player4	3
+Player4	2

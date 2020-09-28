@@ -35,7 +35,7 @@ public class BowlingGameScoreboard implements GameScoreboard {
 			PlayerThrowHistory ps = entry.getValue();
 			
 			int totalScore = 0;
-			for (int frameNumber = 1; frameNumber <= configReader.getFrameNumber(); frameNumber++) {
+			for (int frameNumber = 1; frameNumber <= configReader.getNumberOfFrames(); frameNumber++) {
 
 				PlayerFrame pf = ps.getFrameList().get(frameNumber - 1);
 
@@ -59,7 +59,7 @@ public class BowlingGameScoreboard implements GameScoreboard {
 
 				for (int i = 1; i <= pf.getBonus(); i++) {
 					ThrowScore lastThrowOfFrame = pf.getThrowScoreList().get(pf.getThrowScoreList().size()-1);
-					score += ps.getShotList().get(ps.getShotList().indexOf(lastThrowOfFrame) + i).getScore();
+					score += ps.getThrowList().get(ps.getThrowList().indexOf(lastThrowOfFrame) + i).getScore();
 				}
 
 				sbf.setScore(score);

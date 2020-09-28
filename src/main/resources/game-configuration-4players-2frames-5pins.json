@@ -1,0 +1,37 @@
+{
+	"playersNumber": 4,
+	"frames": [
+		{
+			"frameName": "1",
+			"pinNumber": 5,
+			"frameShots": [
+				{
+					"faultScore": 0,
+					"pinClearBonus": 2,
+					"endFrameOnPinClear": true
+				},
+				{
+					"faultScore": 0,
+					"pinClearBonus": 1,
+					"endFrameOnPinClear": true
+				}
+			]
+		},
+		{
+			"frameName": "2",
+			"pinNumber": 5,
+			"frameShots": [
+				{
+					"faultScore": 0,
+					"pinClearBonus": 0,
+					"endFrameOnPinClear": false
+				},
+				{
+					"faultScore": 0,
+					"pinClearBonus": 0,
+					"endFrameOnPinClear": false
+				}
+			]
+		}
+	]
+}

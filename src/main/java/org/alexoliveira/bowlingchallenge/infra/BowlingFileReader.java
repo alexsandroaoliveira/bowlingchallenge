@@ -12,6 +12,7 @@ import org.alexoliveira.bowlingchallenge.domain.models.PlayerThrow;
 
 public class BowlingFileReader implements GameFileReader {
 
+	@Override
 	public List<PlayerThrow> readFile(String fileName) throws Exception
 	{
 		List<PlayerThrow> result = new ArrayList<PlayerThrow>();

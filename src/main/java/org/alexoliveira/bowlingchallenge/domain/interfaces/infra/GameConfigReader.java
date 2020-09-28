@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface GameConfigReader {
 
-	int getFrameNumber();
+	int getNumberOfFrames();
 
-	int getPlayersNumber();
+	int getNumberOfPlayers();
 
 	List<String> getFrameNames();
 

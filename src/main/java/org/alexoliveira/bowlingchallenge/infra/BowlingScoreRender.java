@@ -8,6 +8,7 @@ import org.alexoliveira.bowlingchallenge.domain.models.Scoreboard.ScoreboardThro
 
 public class BowlingScoreRender implements ScoreRender {
 
+	@Override
 	public void render(Scoreboard scoreboard) {
 		//header
 		String headStr = "Frame";

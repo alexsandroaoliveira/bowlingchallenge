@@ -4,15 +4,19 @@ import org.alexoliveira.bowlingchallenge.application.interfaces.GameApp;
 import org.alexoliveira.bowlingchallenge.domain.BowlingGame;
 import org.alexoliveira.bowlingchallenge.domain.BowlingGameEngine;
 import org.alexoliveira.bowlingchallenge.domain.BowlingGameScoreboard;
+import org.alexoliveira.bowlingchallenge.domain.BowlingGameValidation;
 import org.alexoliveira.bowlingchallenge.domain.interfaces.Game;
 import org.alexoliveira.bowlingchallenge.domain.interfaces.GameEngine;
 import org.alexoliveira.bowlingchallenge.domain.interfaces.GameScoreboard;
+import org.alexoliveira.bowlingchallenge.domain.interfaces.GameValidation;
 import org.alexoliveira.bowlingchallenge.domain.interfaces.infra.GameConfigReader;
 import org.alexoliveira.bowlingchallenge.domain.interfaces.infra.GameFileReader;
+import org.alexoliveira.bowlingchallenge.domain.interfaces.infra.PlayerThrowHistoryRepository;
 import org.alexoliveira.bowlingchallenge.domain.interfaces.infra.ScoreRender;
 import org.alexoliveira.bowlingchallenge.infra.BowlingConfigReader;
 import org.alexoliveira.bowlingchallenge.infra.BowlingFileReader;
 import org.alexoliveira.bowlingchallenge.infra.BowlingScoreRender;
+import org.alexoliveira.bowlingchallenge.infra.repository.PlayerThrowHistoryMemRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,8 +34,13 @@ public class AppConfig {
 	}
 
 	@Bean
-	public GameEngine gameEngine(){
+	public GameEngine gameEngine() {
 		return new BowlingGameEngine();
+	}
+	
+	@Bean
+	public GameValidation gameValidation() {
+		return new BowlingGameValidation(); 
 	}
 	
 	@Bean
@@ -54,4 +63,8 @@ public class AppConfig {
 		return new BowlingConfigReader();
 	}
 	
+	@Bean
+	public PlayerThrowHistoryRepository playerThrowHistoryRepository() {
+		return new PlayerThrowHistoryMemRepository();
+	}	
 }

@@ -14,16 +14,16 @@ public class BowlingConfigReader implements GameConfigReader {
 
 	public BowlingConfigReader() {
 		GameConfigBuilder gameConfigBuilder = new BowlingConfigBuilder();
-		configuration = gameConfigBuilder.build(); 
+		configuration = gameConfigBuilder.build();
 	}
 
 	@Override
-	public int getFrameNumber() {
+	public int getNumberOfFrames() {
 		return configuration.getFrames().size();
 	}
 
 	@Override
-	public int getPlayersNumber() {
+	public int getNumberOfPlayers() {
 		return configuration.getPlayersNumber();
 	}
 

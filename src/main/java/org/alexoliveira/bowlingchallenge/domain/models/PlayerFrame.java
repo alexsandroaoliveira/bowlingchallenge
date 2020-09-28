@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerFrame  {
+	private int frameNumber;
 	
 	private int score;
 	
@@ -11,10 +12,19 @@ public class PlayerFrame  {
 	
 	private int bonus;
 	
-	public PlayerFrame() {
+	public PlayerFrame(int frameNumber) {
 		throwScoreList = new ArrayList<ThrowScore>();
+		this.frameNumber = frameNumber;
 	}
 	
+	public int getFrameNumber() {
+		return frameNumber;
+	}
+
+	public void setFrameNumber(int frameNumber) {
+		this.frameNumber = frameNumber;
+	}
+
 	public int getScore() {
 		return score;
 	}
