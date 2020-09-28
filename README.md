@@ -5,7 +5,7 @@
   <h3 align="center">Bowling Chalenge by Alexsandro Oliveira</h3>
 
   <p align="center">
-    Capture throws score and print the Bowling Scoreboard
+    Inputs the results of players on a bowling game and shows the Scoreboard.
   </p>
 </p>
 
@@ -22,14 +22,15 @@
 
 ## About The Project
 
-A Java8 Console Application project that input the players throws scores and display the bowling scoreboard at the end.  
+A Java8 Console Application Project that inputs the results of players on a bowling game, calculate and show the Scoreboard. 
 
 Highlights:
-* Game configuration using Metadata, some game rules can be modified without change the code. (Number of players, Number of Frames, Number of throws etc)
-* Dependency injection using just Spring Framework. No Spring Boot. (To show explicitly the IoC pattern)
-* Maven layout project. Build with maven
+* Metadata Game configuration - The game rules can be modified without change the code. (Number of players, Number of Frames, Number of throws, etc)
+* Dependency injection using Spring Framework Base. No Spring Boot. (To show explicitly the IoC pattern)
+* Maven layout project. Build with Maven
 * JUnit - Unit test and Integration Test
-* Streams and Lambda using examples
+* Streams and Lambda Sample
+* Regex - line validation and values
 
 
 ### Built With
@@ -102,7 +103,7 @@ John	9
 John	0
 ```
 
-Using this input file, the output will be:
+Using this sample input file, the output will be:
 
 ```sh
 Frame		1		2		3		4		5		6		7		8		9		10
@@ -127,9 +128,11 @@ mvn test
 ```
 ## Next steps
 
-* Add a Logging Framework
+* BowlingGameEngine Class Refactoring - Better SRP
+* PlayerThrowHistoryMemRepository - Replace Map for Java Streams
+* Unit Test for all public Classes/Methods
+* Use Logging Framework
 * Better Exception Handling
-* BowlingGameEngine Class Refactoring 
 
 ## Contact
 
