@@ -2,10 +2,10 @@
 
 <br />
 <p align="center">
-  <h3 align="center">Bowling Chalenge by Alexsandro Oliveira</h3>
+  <h3 align="center">Bowling Chalenge</h3>
 
   <p align="center">
-    Inputs the results of players on a bowling game and shows the Scoreboard.
+    by Alexsandro Oliveira
   </p>
 </p>
 
@@ -22,10 +22,10 @@
 
 ## About The Project
 
-A Java8 Console Application Project that inputs the results of players on a bowling game, calculate and show the Scoreboard. 
+A Java8 Console Application Project that inputs the results of players on a bowling game, calculates and shows the Scoreboard. 
 
 Highlights:
-* Metadata Game configuration - The game rules can be modified without change the code. (Number of players, Number of Frames, Number of throws, etc)
+* Metadata Game configuration - The game rules can be modified without changing the code. (Number of players, Number of Frames, Number of throws, etc)
 * Dependency injection using Spring Framework Base. No Spring Boot. (To show explicitly the IoC pattern)
 * Maven layout project. Build with Maven
 * JUnit - Unit test and Integration Test
@@ -33,7 +33,7 @@ Highlights:
 * Regex - line validation and values
 
 
-### Built With
+### Built With / Requirements
 
 * [JDK8](https://www.oracle.com/java/technologies/javase-downloads.html#javasejdk)
 * [Maven](https://maven.apache.org)
@@ -53,7 +53,7 @@ git clone https://github.com/alexsandroaoliveira/bowlingchallenge.git
 
 ## Usage
 
-The program require as execution arg one text file containing the results for several players bowling. 
+The program requires as execution arg one text file containing the results for several players bowling. 
 
 This file must be written according to these guidelines:
 
@@ -119,6 +119,9 @@ Score		16		25		44		53		82		101		110		124		132		151
 
 ```sh
 mvn clean compile exec:java -Dexec.args="game-score-sample.txt" 
+or
+mvn clean compile 
+mvn exec:java -Dexec.args="game-score-sample.txt" 
 ```
 
 ### Test
@@ -136,6 +139,6 @@ mvn test
 
 ## Contact
 
-Alexsandro Oliveira - alexsandroaoliveira@gmail.com@gmail.com
+Alexsandro Oliveira - alexsandroaoliveira@gmail.com
 
 Project Link: [https://github.com/alexsandroaoliveira/bowlingchallenge](https://github.com/alexsandroaoliveira/bowlingchallenge)
