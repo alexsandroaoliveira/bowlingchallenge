@@ -23,11 +23,6 @@ public class BowlingConfigReader implements GameConfigReader {
 	}
 
 	@Override
-	public int getNumberOfPlayers() {
-		return configuration.getPlayersNumber();
-	}
-
-	@Override
 	public List<String> getFrameNames() {
 		List<String> frameNames = new ArrayList<>();
 		

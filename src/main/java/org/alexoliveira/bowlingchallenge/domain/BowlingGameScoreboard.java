@@ -43,6 +43,7 @@ public class BowlingGameScoreboard implements GameScoreboard {
 				sbp.getScoreboardFrameList().add(sbf);
 
 
+				//Fill with empty score - Strikes
 				for (int i = pf.getThrowScoreList().size(); i < configReader.getTrowsNumber(frameNumber); i++) {
 					ScoreboardThrow sbt = scoreboard.new ScoreboardThrow();
 					sbf.getScoreboardThrowList().add(sbt);	

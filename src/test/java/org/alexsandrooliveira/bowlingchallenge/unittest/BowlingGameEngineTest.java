@@ -46,7 +46,6 @@ public class BowlingGameEngineTest extends TestCase {
 			GameValidation mockedGameValidation = context.getBean(GameValidation.class);			
 			GameConfigReader mockedConfigReader = context.getBean(GameConfigReader.class);			
 			
-			when(mockedConfigReader.getNumberOfPlayers()).thenReturn(2);
 			when(mockedConfigReader.getNumberOfFrames()).thenReturn(2);
 			when(mockedConfigReader.getTrowsNumber(1)).thenReturn(2);
 			when(mockedConfigReader.getTrowsNumber(2)).thenReturn(2);

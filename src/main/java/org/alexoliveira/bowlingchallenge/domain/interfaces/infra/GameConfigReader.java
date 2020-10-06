@@ -6,8 +6,6 @@ public interface GameConfigReader {
 
 	int getNumberOfFrames();
 
-	int getNumberOfPlayers();
-
 	List<String> getFrameNames();
 
 	int getTrowsNumber(int frameNumber);

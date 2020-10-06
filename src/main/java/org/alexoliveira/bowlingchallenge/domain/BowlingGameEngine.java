@@ -25,6 +25,7 @@ public class BowlingGameEngine implements GameEngine {
 	private int currentShotNumber;
 	private int currentPlayerNumber;
 	private int currentScore;
+	private int numberOfPlayers;
 
 	private PlayerFrame currentFrame;
 
@@ -33,6 +34,7 @@ public class BowlingGameEngine implements GameEngine {
 		currentShotNumber = 1;
 		currentPlayerNumber = 1;
 		currentScore = 0;
+		numberOfPlayers = 100; 
 		currentFrame = new PlayerFrame(currentFrameNumber);
 	}
 
@@ -43,6 +45,19 @@ public class BowlingGameEngine implements GameEngine {
 
 		if (playerThrowHistoryRepository.isPlayerExists(0, playerName)) {
 			playerThrowHistory = playerThrowHistoryRepository.get(0, playerName);
+			
+			if (currentFrameNumber == 1 && currentShotNumber == 1) {
+				numberOfPlayers = currentPlayerNumber - 1;
+				currentFrameNumber++;
+				currentPlayerNumber = 1;
+				currentFrame = new PlayerFrame(currentFrameNumber);
+			
+			} else if (currentPlayerNumber > numberOfPlayers) {
+				currentFrameNumber++;
+				currentPlayerNumber = 1;
+				currentFrame = new PlayerFrame(currentFrameNumber);
+			}		
+
 
 		} else {
 			playerThrowHistory = newPlayer(playerName);
@@ -68,10 +83,6 @@ public class BowlingGameEngine implements GameEngine {
 		
 		PlayerThrowHistory playerThrowHistory;
 		
-		if (playerThrowHistoryRepository.getPlayers(0).size() >= configReader.getNumberOfPlayers()) {
-			throw new Exception("Maximum players number reached" + configReader.getNumberOfPlayers());
-		}
-
 		playerThrowHistory = new PlayerThrowHistory(currentPlayerNumber);
 		playerThrowHistoryRepository.insert(0, playerName, playerThrowHistory);
 		
@@ -109,7 +120,7 @@ public class BowlingGameEngine implements GameEngine {
 			currentScore=0;
 
 			if (isEndFrameOnPinClear) {
-				moveToNextFrame();
+				moveToNextPlayer();
 
 			} else {
 				moveToNextThrow();
@@ -127,7 +138,7 @@ public class BowlingGameEngine implements GameEngine {
 			currentFrame.setScore(currentFrame.getScore() + currentScore);
 			currentScore = 0;
 
-			moveToNextFrame();
+			moveToNextPlayer();
 
 		} else {
 			currentShotNumber++;
@@ -135,16 +146,8 @@ public class BowlingGameEngine implements GameEngine {
 		}
 	}
 
-	private void moveToNextFrame() {
-		if (currentPlayerNumber == configReader.getNumberOfPlayers()) {
-			currentFrameNumber++;
-			currentPlayerNumber=1;
-
-		}else {
-			currentPlayerNumber++;
-
-		}
-
+	private void moveToNextPlayer() {
+		currentPlayerNumber++;
 		currentShotNumber = 1;
 		currentFrame = new PlayerFrame(currentFrameNumber);
 	}

@@ -5,20 +5,10 @@ import java.util.List;
 
 public class GameConfiguration {
 	
-	private int playersNumber;
-	
 	private List<FrameConfiguration> frames;
 	
 	public GameConfiguration() {
 		frames = new ArrayList<FrameConfiguration>();
-	}
-
-	public int getPlayersNumber() {
-		return playersNumber;
-	}
-
-	public void setPlayersNumber(int playersNumber) {
-		this.playersNumber = playersNumber;
 	}
 
 	public List<FrameConfiguration> getFrames() {
